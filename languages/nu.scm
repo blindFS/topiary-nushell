@@ -2,7 +2,6 @@
 [
   (cell_path)
   (comment)
-  (long_flag_equals_value)
   (shebang)
   (unquoted)
   (val_binary)
@@ -30,10 +29,8 @@
   "=>"
   "alias"
   "as"
-  "break"
   "catch"
   "const"
-  "continue"
   "def"
   "do"
   "else"
@@ -52,7 +49,6 @@
   "match"
   "module"
   "mut"
-  "not"
   "new"
   "overlay"
   "return"
@@ -65,21 +61,17 @@
   (comment)
 ] @prepend_space @append_space
 
-;; add spaces to left & right sides of operators
-(pipe_element
+(pipeline
   "|" @prepend_space @append_space @prepend_empty_softline
 )
 
+;; add spaces to left & right sides of operators
 (expr_binary
-  lhs: _ @append_space
-  opr: _ @append_spaced_softline ; multiline in expr_parenthesized
-  rhs: _ @prepend_space
+  opr: _ @append_space @prepend_space
 )
 
 (assignment
-  lhs: _ @append_space
-  opr: _
-  rhs: _ @prepend_space
+  opr: _ @append_space @prepend_space
 )
 
 (where_command
@@ -106,9 +98,8 @@
 [
   "["
   "("
+  "{"
 ] @append_indent_start @append_empty_softline
-
-"{" @append_indent_start
 
 [
   "]"
@@ -116,12 +107,13 @@
   ")"
 ] @prepend_indent_end @prepend_empty_softline
 
-; change line happens after || for closure
-(
-  "{" @append_empty_softline
-  .
-  (parameter_pipes)? @do_nothing
-)
+;;; change line happens after || for closure
+;"{" @append_indent_start
+;(
+;  "{" @append_empty_softline
+;  .
+;  (parameter_pipes)? @do_nothing
+;)
 
 ;; space/new-line between parameters
 (parameter_pipes
@@ -174,23 +166,26 @@
 
 ;; forced new-line
 [
-  (decl_def)
-  (decl_export)
-  (decl_extern)
-  (shebang)
+  (comment)
 ] @append_hardline
 
-[
-  (comment)
-  (pipeline)
-  (overlay_use)
-  (overlay_hide)
-  (overlay_list)
-  (overlay_new)
-  (hide_env)
-  (hide_mod)
-  (decl_use)
-] @append_empty_softline
+(nu_script
+  (_)
+  .
+  (_) @prepend_hardline
+)
+
+(block
+  (_)
+  .
+  (_) @prepend_hardline
+)
+
+(val_closure
+  (_)
+  .
+  (_) @prepend_hardline
+)
 
 ;; control flow
 (ctrl_if
