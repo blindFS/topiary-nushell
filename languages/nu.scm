@@ -24,8 +24,11 @@
 ] @append_space
 
 [
-  "->"
   "="
+] @prepend_space
+
+[
+  "->"
   "=>"
   "alias"
   "as"
@@ -98,7 +101,6 @@
 [
   "["
   "("
-  "{"
 ] @append_indent_start @append_empty_softline
 
 [
@@ -108,12 +110,12 @@
 ] @prepend_indent_end @prepend_empty_softline
 
 ;;; change line happens after || for closure
-;"{" @append_indent_start
-;(
-;  "{" @append_empty_softline
-;  .
-;  (parameter_pipes)? @do_nothing
-;)
+"{" @append_indent_start
+(
+  "{" @append_empty_softline
+  .
+  (parameter_pipes)? @do_nothing
+)
 
 ;; space/new-line between parameters
 (parameter_pipes
@@ -171,20 +173,17 @@
 
 (nu_script
   (_)
-  .
-  (_) @prepend_hardline
+  (_) @prepend_empty_softline
 )
 
 (block
   (_)
-  .
-  (_) @prepend_hardline
+  (_) @prepend_empty_softline
 )
 
 (val_closure
   (_)
-  .
-  (_) @prepend_hardline
+  (_) @prepend_empty_softline
 )
 
 ;; control flow
@@ -206,13 +205,9 @@
 
 (ctrl_match
   "match" @append_space
-  scrutinee: _? @append_space
+  ;scrutinee: _? @append_space
   (match_arm)? @prepend_spaced_softline
   (default_arm)? @prepend_spaced_softline
-)
-
-(match_guard
-  "if" @prepend_space @append_space
 )
 
 ;; data structures
