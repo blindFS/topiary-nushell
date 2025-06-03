@@ -1,4 +1,4 @@
-# comment at the top  
+# comment at the top
 
 # comment before command
 # multiline

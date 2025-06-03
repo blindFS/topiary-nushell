@@ -11,7 +11,7 @@ extern hi [
 hide-env ABC
 with-env {ABC: 'hello'} {
   (
-    do -i --env {|foo, bar|
+    do -i --env {|foo bar|
       print $env.ABC
     }
     foo bar

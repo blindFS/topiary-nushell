@@ -184,10 +184,20 @@
   (parameter) @prepend_empty_softline
 )
 
+(parameter_parens
+  (parameter) @append_space
+  .
+  (parameter) @prepend_empty_softline
+)
+
 (parameter
   param_long_flag: _? @prepend_space
   .
   flag_capsule: _? @prepend_space
+)
+
+(parameter
+  "," @delete
 )
 
 ;; attributes
