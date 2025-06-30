@@ -23,7 +23,7 @@
 
 ```nushell
 # e.g. installing with cargo
-cargo install --git https://github.com/tweag/topiary topiary-cli
+cargo install topiary-cli
 ```
 
 2. Clone this repo somewhere
