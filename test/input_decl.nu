@@ -44,7 +44,8 @@ use module ["foo" bar]
 
 # decl_module
 module greetings {
-    export def hello [name: string] {
+    export def hello [name: string --experimental-options: oneof<list<string>, string> # enable or disable experimental options
+] {
         $"hello ($name)!"
     }
 
