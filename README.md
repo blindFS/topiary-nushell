@@ -10,7 +10,7 @@
 
 ## Status
 
-* Supposed to work well with all language features of nushell v0.105
+* Supposed to work well with all language features of nushell v0.106
 
 > [!NOTE]
 >
