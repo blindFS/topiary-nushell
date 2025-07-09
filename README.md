@@ -10,7 +10,11 @@
 
 ## Status
 
+<<<<<<< HEAD
 * Supposed to work well with all language features of nushell v0.106
+=======
+* Supposed to work well with all language features of nushell v0.105
+>>>>>>> e045c1f (doc: topiary required version)
 
 > [!NOTE]
 >
