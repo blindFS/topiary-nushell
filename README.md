@@ -10,7 +10,7 @@
 
 ## Status
 
-* Supposed to work well with all language features of latest nushell (0.103)
+* Supposed to work well with all language features of nushell v0.105
 
 > [!NOTE]
 >
@@ -19,7 +19,7 @@
 
 ## Setup
 
-1. Install topiary-cli using whatever package-manager on your system (0.6.0+ suggested)
+1. Install topiary-cli using whatever package-manager on your system (0.6.1+ required)
 
 ```nushell
 # e.g. installing with cargo

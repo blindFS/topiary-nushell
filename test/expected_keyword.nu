@@ -9,3 +9,4 @@ hide foo bar
 hide-env PWD
 hide-env -i PWD PATH
 source-env foo.nu
+ls | where name.foo >= 1

@@ -14,7 +14,7 @@ alias ll = ls -l # alias comment
 ls | where $in.name == 'foo'
 | where {|e| $e.item.name !~ $'^($e.index + 1)' }
 # match
-let foo = { name: 'bar', count: 7 }
+let foo =   { name: 'bar', count: 7 }
 match $foo {
     { name: 'bar' count: $it } if $it < 5 => ($it + 3), # match arm comment
     # match comment
