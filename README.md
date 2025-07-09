@@ -10,10 +10,12 @@
 
 ## Status
 
-* Supposed to work well with all language features of latest nushell (0.103)
+* Supposed to work well with all language features of nushell v0.103
 
 > [!NOTE]
 >
+> * Try [dev](https://github.com/blindFS/topiary-nushell/tree/dev) branch if you want the support for latest tree-sitter-nu parser.
+>   * Pay attention to the minimal required version of topiary-cli
 > * There're corner cases where `tree-sitter-nu` would fail with parsing errors, if you encounter them, please open an issue [there](https://github.com/nushell/tree-sitter-nu).
 > * If you encounter any style/format issue, please report in this repo, any feedback is appreciated.
 
