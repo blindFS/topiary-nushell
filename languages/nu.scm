@@ -106,7 +106,7 @@
 
 (assignment opr: _ @prepend_space)
 
-(where_command
+(where_predicate
   opr: _ @append_input_softline @prepend_input_softline
 )
 
