@@ -21,6 +21,9 @@ match $foo {
     { name: 'bar' count: $it } if not ($it >= 5) => ($it + 7),
     _ => {exit 0}
 }
+match  $foo {
+  [ a  b  c] => 0
+}
 # while
 mut x = 0; while $x < 10 { $x = $x + 1 }; $x # while comment
 # loop
