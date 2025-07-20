@@ -24,7 +24,6 @@
 [
   ":"
   ";"
-  "do"
   "if"
   "match"
   "try"
@@ -37,29 +36,19 @@
   "->"
   "=>"
   "alias"
-  "as"
   "catch"
   "const"
   "def"
   "else"
-  "error"
   "export"
   "export-env"
   "extern"
   "for"
-  "hide"
-  "hide-env"
   "in"
   "let"
   "loop"
-  "make"
   "module"
   "mut"
-  "new"
-  "overlay"
-  "return"
-  "source"
-  "source-env"
   "use"
   "where"
   (match_guard)
@@ -92,22 +81,6 @@
 (short_flag "=" @prepend_antispace @append_antispace)
 (long_flag "=" @prepend_antispace @append_antispace)
 (env_var "=" @prepend_antispace @append_antispace)
-
-(overlay_hide
-  overlay: _ @prepend_space @append_space
-)
-
-(hide_env
-  (identifier) @append_space
-  .
-  (identifier)
-)
-
-(hide_mod
-  (_) @append_space
-  .
-  (_)
-)
 
 ;; indentation
 [
@@ -260,8 +233,6 @@
   (match_arm)? @prepend_spaced_softline
   (default_arm)? @prepend_spaced_softline
 )
-
-(ctrl_do (_) @prepend_input_softline)
 
 ;; data structures
 (command_list
