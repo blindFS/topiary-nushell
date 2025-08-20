@@ -3,8 +3,8 @@
     nu = {
       extensions = ["nu"],
       grammar.source.git = {
-        git = "https://github.com/nushell/tree-sitter-nu.git",
-        rev = "c10340b5bb3789f69182acf8f34c3d4fc24d2fe1",
+        git = "https://github.com/blindfs/tree-sitter-nu.git",
+        rev = "0dd57d4a14c20cef67fc6e3cbcf3aa0ff2345dda",
       },
     },
   },

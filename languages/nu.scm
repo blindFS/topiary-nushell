@@ -13,6 +13,9 @@
   (val_number)
   (val_string)
   (val_variable)
+  (cmd_identifier)
+  (identifier)
+  (path)
 ] @leaf
 
 ;; keep empty lines
@@ -21,7 +24,6 @@
 [
   ":"
   ";"
-  "do"
   "if"
   "match"
   "try"
@@ -31,68 +33,25 @@
 
 [
   "="
-  (match_guard)
-  (short_flag)
-  (long_flag)
-] @prepend_space
-
-;; FIXME: temp workaround for the whitespace issue
-(short_flag "=" @prepend_antispace)
-(long_flag "=" @prepend_antispace)
-(param_value "=" @append_space)
-
-(assignment
-  opr: _
-  rhs: (pipeline
-    (pipe_element
-      (val_string
-        (raw_string_begin)
-      )
-    )
-  ) @prepend_space
-)
-
-(
-  "="
-  .
-  (pipeline
-    (pipe_element
-      (val_string
-        (raw_string_begin)
-      )
-    )
-  ) @prepend_space
-)
-
-[
   "->"
   "=>"
   "alias"
-  "as"
   "catch"
   "const"
   "def"
   "else"
-  "error"
   "export"
   "export-env"
   "extern"
   "for"
-  "hide"
-  "hide-env"
   "in"
   "let"
   "loop"
-  "make"
   "module"
   "mut"
-  "new"
-  "overlay"
-  "return"
-  "source"
-  "source-env"
   "use"
   "where"
+  (match_guard)
 ] @prepend_space @append_space
 
 (pipeline
@@ -104,9 +63,9 @@
   opr: _ @append_input_softline @prepend_input_softline
 )
 
-(assignment opr: _ @prepend_space)
+(assignment opr: _ @prepend_space @append_space)
 
-(where_command
+(where_predicate
   opr: _ @append_input_softline @prepend_input_softline
 )
 
@@ -119,32 +78,9 @@
   .
   (_)
 )
-
-(overlay_hide
-  overlay: _ @prepend_space
-)
-
-;; FIXME: temp workaround for the whitespace issue
-(hide_env
-  [
-    (short_flag)
-    (long_flag)
-  ] @append_antispace
-  .
-  (_)
-)
-
-(hide_env
-  (identifier) @append_space
-  .
-  (identifier)
-)
-
-(hide_mod
-  (_) @append_space
-  .
-  (_)
-)
+(short_flag "=" @prepend_antispace @append_antispace)
+(long_flag "=" @prepend_antispace @append_antispace)
+(env_var "=" @prepend_antispace @append_antispace)
 
 ;; indentation
 [
@@ -298,8 +234,6 @@
   (default_arm)? @prepend_spaced_softline
 )
 
-(ctrl_do (_) @prepend_input_softline)
-
 ;; data structures
 (command_list
   [
@@ -352,5 +286,12 @@
   type: _ @append_delimiter
   .
   key: _ @prepend_space
+  (#delimiter! ",")
+)
+
+(composite_type
+  type: _ @append_delimiter
+  .
+  type: _ @prepend_space
   (#delimiter! ",")
 )

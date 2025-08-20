@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 name: continuous-integration
 
@@ -17,16 +18,11 @@ jobs:
           version: "*"
       - run: nu --version
       - name: Setup Rust toolchain and cache
-        uses: actions-rust-lang/setup-rust-toolchain@v1.10.1
-      - name: Clone topiary
-        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
-        with:
-          branch: 'main'
-          owner: 'tweag'
-          repository: 'topiary'
+        uses: actions-rust-lang/setup-rust-toolchain@v1.13.0
+      - name: Cargo binstall
+        uses: cargo-bins/cargo-binstall@main
       - name: Install topiary-cli
         run: |
-          cd topiary
-          topiary --version || cargo install --path topiary-cli
+          topiary --version || cargo binstall --no-confirm topiary-cli
       - name: Run tests
         run: nu run_test.nu
