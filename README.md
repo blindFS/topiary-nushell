@@ -10,16 +10,13 @@
 
 ## Status
 
-<<<<<<< HEAD
 * Supposed to work well with all language features of nushell v0.106
-=======
-* Supposed to work well with all language features of nushell v0.105
->>>>>>> e045c1f (doc: topiary required version)
+  * Except for some known issues of `tree-sitter-nu`
 
 > [!NOTE]
 >
-> * There're corner cases where `tree-sitter-nu` would fail with parsing errors, if you encounter them, please open an issue [there](https://github.com/nushell/tree-sitter-nu).
-> * If you encounter any style/format issue, please report in this repo, any feedback is appreciated.
+> * There're corner cases where `tree-sitter-nu` would fail with parsing errors, if you encounter any, feel free to report [at the parser side](https://github.com/nushell/tree-sitter-nu/issues).
+> * If you encounter any style/format issue, please report in this repo.
 
 ## Setup
 
