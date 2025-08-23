@@ -23,6 +23,6 @@ jobs:
         uses: cargo-bins/cargo-binstall@main
       - name: Install topiary-cli
         run: |
-          topiary --version || cargo binstall --no-confirm topiary-cli
+          topiary --version || cargo binstall --no-confirm --force topiary-cli
       - name: Run tests
         run: nu run_test.nu
