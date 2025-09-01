@@ -294,9 +294,17 @@
 
 ;; match_arm
 (val_list
-  entry: _ @append_space
+  entry: (_) @append_delimiter
+  ;; unlike list expressions, list patterns include commas as anonymous nodes.
+  ;; this is required to avoid adding multiple commas
+  ","* @do_nothing
+  entry: (_)
+  (#delimiter! ",")
+)
+(val_list
   .
-  entry: _ @prepend_spaced_softline
+  entry: (_)
+  entry: (_) @prepend_spaced_softline
 )
 
 (val_table
@@ -304,9 +312,19 @@
 )
 
 (val_record
-  entry: (record_entry) @append_space
+  entry: (_) @append_delimiter
+  ;; unlike record expressions, record patterns include commas as anonymous nodes.
+  ;; this is required to avoid adding multiple commas
+  ","* @do_nothing
+  entry: (_)
+  (#delimiter! ",")
+)
+(val_record
   .
-  entry: (record_entry) @prepend_spaced_softline
+  ;; record patterns can use `{ $foo }` as a shorthand for `{ foo: $foo }`
+  ;; so we can's use record_entry here
+  entry: (_)
+  entry: (_) @prepend_spaced_softline
 )
 
 (record_body

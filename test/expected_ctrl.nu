@@ -16,13 +16,15 @@ ls | where $in.name == 'foo'
 # match
 let foo = {name: 'bar', count: 7}
 match $foo {
-  {name: 'bar' count: $it} if $it < 5 => ($it + 3) # match arm comment
+  {name: 'bar', count: $it} if $it < 5 => ($it + 3) # match arm comment
   # match comment
-  {name: 'bar' count: $it} if not ($it >= 5) => ($it + 7)
+  {name: 'bar', count: $it} if not ($it >= 5) => ($it + 7)
+  # record shorthand
+  {$name, $count} => $'($name): ($count)'
   _ => { exit 0 }
 }
 match $foo {
-  [a b c] => 0
+  [a, b, c] => 0
 }
 # while
 mut x = 0; while $x < 10 { $x = $x + 1 }; $x # while comment

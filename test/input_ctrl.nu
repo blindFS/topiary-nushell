@@ -19,6 +19,8 @@ match $foo {
     { name: 'bar' count: $it } if $it < 5 => ($it + 3), # match arm comment
     # match comment
     { name: 'bar' count: $it } if not ($it >= 5) => ($it + 7),
+    # record shorthand
+    {  $name $count } => $'($name): ($count)',
     _ => {exit 0}
 }
 match  $foo {
