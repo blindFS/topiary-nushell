@@ -234,6 +234,8 @@
   (default_arm)? @prepend_spaced_softline
 )
 
+(match_pattern "|" @prepend_spaced_softline @append_space )
+
 ;; data structures
 (command_list
   [
