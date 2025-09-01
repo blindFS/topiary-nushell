@@ -261,6 +261,17 @@
   "}"? @prepend_spaced_softline
 )
 
+; append delimiter after match_arms in single line match expressions
+(ctrl_match
+  "match"
+  scrutinee: _
+  (_) @append_delimiter
+  .
+  (_)
+  (#delimiter! ",")
+  (#single_line_only!)
+)
+
 (match_pattern "|" @prepend_spaced_softline @append_space )
 
 ;; data structures
