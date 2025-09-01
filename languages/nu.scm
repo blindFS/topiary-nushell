@@ -280,9 +280,16 @@
 ) @prepend_input_softline
 
 (list_body
-  entry: _ @append_space
+  (_) @append_delimiter
   .
-  entry: _ @prepend_spaced_softline
+  (_)
+  (#delimiter! ",")
+  (#single_line_only!)
+)
+(list_body
+  entry: (_) @append_space
+  .
+  entry: (_) @prepend_spaced_softline
 )
 
 ;; match_arm
@@ -302,6 +309,13 @@
   entry: (record_entry) @prepend_spaced_softline
 )
 
+(record_body
+  entry: (record_entry) @append_delimiter
+  .
+  entry: (record_entry)
+  (#delimiter! ",")
+  (#single_line_only!)
+)
 (record_body
   entry: (record_entry) @append_space
   .

@@ -21,13 +21,13 @@ def modify_args_per_workspace [
   )
   let extra = (
     if $sid == $focused_sid {
-      {highlight: on border_color: $colors.green}
+      {highlight: on, border_color: $colors.green}
     } else {
-      {highlight: off border_color: $colors.fg}
+      {highlight: off, border_color: $colors.fg}
     }
   )
 
-  ['--set' $"space.($sid)"]
+  ['--set', $"space.($sid)"]
   | append (
     if (($icons | is-empty) and ($sid != $focused_sid)) {
       [
@@ -58,14 +58,14 @@ def workspace_modification_args [
   let ids_to_modify = (
     if ($last_sid | is-empty) { (aerospace list-workspaces --all | lines) }
     else {
-      [$focused_sid $last_sid]
+      [$focused_sid, $last_sid]
     }
   )
   $ids_to_modify
   | uniq
   | each { modify_args_per_workspace $in $focused_sid }
   | flatten
-  | append ["--set" $name $"label=($focused_sid)"]
+  | append ["--set", $name, $"label=($focused_sid)"]
 }
 
 # remained for other possible signals

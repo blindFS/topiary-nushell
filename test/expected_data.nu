@@ -38,7 +38,7 @@ export const config = {
     {
       name: ws_listener
       pos: left
-      events: [aerospace_workspace_change space_windows_change]
+      events: [aerospace_workspace_change, space_windows_change]
       args: {
         updates: on
         drawing: off
@@ -48,7 +48,7 @@ export const config = {
     {
       name: front_app
       pos: left
-      events: [front_app_switched aerospace_mode_change]
+      events: [front_app_switched, aerospace_mode_change]
       args: {
         label.color: $colors.black
         icon.color: $colors.black
@@ -112,7 +112,7 @@ export const config = {
     }
     {
       name: battery
-      events: [system_woke power_source_change]
+      events: [system_woke, power_source_change]
       args: {
         update_freq: 120
         script: '{}/battery.nu'
@@ -247,7 +247,7 @@ export const config = {
   ]
 }
 
-const table = [[a b]; [1 2] [2 [4 4]]]
-const table_no_row = [[a b]; ]
+const table = [[a, b]; [1, 2] [2, [4, 4]]]
+const table_no_row = [[a, b]; ]
 
 mut foo: record<"a", b, "c": int, d: list<any>> = {}
