@@ -34,6 +34,11 @@ def "hi there" [where: string]: nothing -> record<foo: table<baz: float>,  bar: 
     bar: 1}
 }
 
+## multiple input/output types
+def foo []: [
+  int -> int, nothing -> int
+] { 1 }
+
 # decl_use
 use greetings.nu hello
 export use greetings.nu *

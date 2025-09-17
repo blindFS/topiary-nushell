@@ -160,7 +160,7 @@
 ) @prepend_space
 
 (returns
-  type: _ @append_space
+  type: _ @append_spaced_softline
   .
   type: _
 )
