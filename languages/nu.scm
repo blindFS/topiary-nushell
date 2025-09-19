@@ -97,7 +97,7 @@
   ")"
 ] @prepend_indent_end @prepend_empty_softline
 
-;;; change line happens after || for closure
+;; change line happens after || for closure
 "{" @append_indent_start
 (
   "{" @append_empty_softline
@@ -283,7 +283,10 @@
 )
 
 (collection_type
-  type: _ @append_delimiter
+  [
+    type: _
+    key: _
+  ] @append_delimiter
   .
   key: _ @prepend_space
   (#delimiter! ",")
