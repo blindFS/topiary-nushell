@@ -1,4 +1,4 @@
-#!/usr/bin/env nu --stdin
+#!/usr/bin/env -S nu --stdin
 
 const script_path = path self .
 
