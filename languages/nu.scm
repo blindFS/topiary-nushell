@@ -18,6 +18,9 @@
   (path)
 ] @leaf
 
+;; TODO: new feature of the next topiary release
+;; (unescaped_interpolated_content) @keep_whitespaces
+
 ;; keep empty lines
 (_) @allow_blank_line_before
 
@@ -188,16 +191,39 @@
   (#scope_id! "consecutive_scope")
 )
 
-(block
-  "{" @append_space
-  "}" @prepend_space
-)
-
 (val_closure
   (_) @append_begin_scope
   .
   (_) @prepend_end_scope @prepend_input_softline
   (#scope_id! "consecutive_scope")
+)
+
+(block
+  "{" @append_space
+  "}" @prepend_space
+)
+
+;; HACK: temporarily disable formatting after special comment
+;; abuse capture `@do_nothing` for the predicate
+(nu_script
+  (comment) @do_nothing
+  .
+  (_) @leaf
+  (#match? @do_nothing "Topiary: disable")
+)
+
+(block
+  (comment) @do_nothing
+  .
+  (_) @leaf
+  (#match? @do_nothing "Topiary: disable")
+)
+
+(val_closure
+  (comment) @do_nothing
+  .
+  (_) @leaf
+  (#match? @do_nothing "Topiary: disable")
 )
 
 (val_closure

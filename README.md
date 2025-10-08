@@ -10,7 +10,7 @@
 
 ## Status
 
-* Supposed to work well with all language features of nushell v0.106
+* Supposed to work well with all language features of nushell v0.107
   * Except for some known issues of `tree-sitter-nu`
 
 > [!NOTE]
@@ -123,6 +123,24 @@ cat foo.nu | topiary format --language nu
 ```
 
 </details>
+
+### Locally disable formatting for certain expression
+
+If you don't like the formatted output of certain parts of your code,
+you can choose to disable it locally with a preceding `Topiary: disable` comment:
+
+```nushell
+...
+# Topiary: disable
+let foo = [foo, bar
+  baz, ]
+...
+```
+
+This will keep the let assignment as it is while formatting the rest of the code.
+
+> [!NOTE]
+> We do recommend reporting code style issues before resorting to this workaround.
 
 ## Editor Integration
 
