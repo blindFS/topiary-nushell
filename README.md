@@ -124,7 +124,7 @@ cat foo.nu | topiary format --language nu
 
 </details>
 
-### Locally disable formatting for certain expression
+### Locally Disable Formatting for Certain Expression
 
 If you don't like the formatted output of certain parts of your code,
 you can choose to disable it locally with a preceding `Topiary: disable` comment:
