@@ -1,16 +1,16 @@
-# Topiary: disable
+# topiary: disable
 let    foo =   {}
 
 {  ||
 # other comments
   let foo =   1
-  # Topiary: disable
+  # topiary: disable
   let bar  =  2
 }
 
 module foo {
 
-  #Topiary: disable
+  #topiary: disable
   def   should_not_be_formatted []  { }
 
   def   should_be_formatted []  { }

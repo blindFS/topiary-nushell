@@ -127,11 +127,11 @@ cat foo.nu | topiary format --language nu
 ### Locally Disable Formatting for Certain Expression
 
 If you don't like the formatted output of certain parts of your code,
-you can choose to disable it locally with a preceding `Topiary: disable` comment:
+you can choose to disable it locally with a preceding `topiary: disable` comment:
 
 ```nushell
 ...
-# Topiary: disable
+# topiary: disable
 let foo = [foo, bar
   baz, ]
 ...

@@ -209,21 +209,21 @@
   (comment) @do_nothing
   .
   (_) @leaf
-  (#match? @do_nothing "Topiary: disable")
+  (#match? @do_nothing "topiary: disable")
 )
 
 (block
   (comment) @do_nothing
   .
   (_) @leaf
-  (#match? @do_nothing "Topiary: disable")
+  (#match? @do_nothing "topiary: disable")
 )
 
 (val_closure
   (comment) @do_nothing
   .
   (_) @leaf
-  (#match? @do_nothing "Topiary: disable")
+  (#match? @do_nothing "topiary: disable")
 )
 
 (val_closure
