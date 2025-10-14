@@ -23,7 +23,9 @@ match $foo {
 }
 match  $foo {
   [ a  b  c] => 0
+  a|b|c => 42
 }
+match $foo {null => {return "default"}   $val => $val}
 # while
 mut x = 0; while $x < 10 { $x = $x + 1 }; $x # while comment
 # loop

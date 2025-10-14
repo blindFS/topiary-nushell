@@ -258,7 +258,10 @@
   scrutinee: _? @append_space
   (match_arm)? @prepend_spaced_softline
   (default_arm)? @prepend_spaced_softline
+  "}"? @prepend_spaced_softline
 )
+
+(match_pattern "|" @prepend_spaced_softline @append_space )
 
 ;; data structures
 (command_list
