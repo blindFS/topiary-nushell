@@ -295,6 +295,10 @@
   entry: _ @prepend_spaced_softline
 )
 
+(val_list
+  rest: _ @prepend_spaced_softline
+)
+
 (val_table
   row: _ @prepend_spaced_softline
 )

@@ -25,6 +25,8 @@ match $foo {
   [a b c] => 0
   a | b | c => 42
   {$bar $baz} => $baz
+  #  ..rest pattern
+  [$x ..$y] if $x == 1 => { 'good list' }
 }
 match $foo { null => { return "default" } $val => $val }
 # while
