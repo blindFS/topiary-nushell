@@ -300,9 +300,9 @@
 )
 
 (val_record
-  entry: (record_entry) @append_space
+  entry: _ @append_space
   .
-  entry: (record_entry) @prepend_spaced_softline
+  entry: _ @prepend_spaced_softline
 )
 
 (record_body

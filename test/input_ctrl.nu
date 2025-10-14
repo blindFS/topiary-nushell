@@ -24,6 +24,7 @@ match $foo {
 match  $foo {
   [ a  b  c] => 0
   a|b|c => 42
+  { $bar  $baz} => $baz
 }
 match $foo {null => {return "default"}   $val => $val}
 # while
