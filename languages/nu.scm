@@ -288,15 +288,15 @@
   entry: _ @prepend_spaced_softline
 )
 
-;; match_arm
-(val_list
+(record_body
   entry: _ @append_space
   .
   entry: _ @prepend_spaced_softline
 )
 
+;; match_arm
 (val_list
-  entry: _
+  (list_body)
   .
   rest: _ @prepend_spaced_softline
 )
@@ -305,18 +305,7 @@
   row: _ @prepend_spaced_softline
 )
 
-(val_record
-  entry: _ @append_space
-  .
-  entry: _ @prepend_spaced_softline
-)
-
-(record_body
-  entry: (record_entry) @append_space
-  .
-  entry: (record_entry) @prepend_spaced_softline
-)
-
+;; type notation
 (collection_type
   [
     type: _
