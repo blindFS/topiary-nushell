@@ -27,6 +27,7 @@ match  $foo {
   { $bar  $baz} => $baz
   #  ..rest pattern
   [ $x  ..$y  ] if $x == 1 => { 'good list' }
+  [ ..$y] => { $y }
 }
 match $foo {null => {return "default"}   $val => $val}
 # while

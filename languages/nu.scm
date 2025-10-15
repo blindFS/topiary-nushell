@@ -296,6 +296,8 @@
 )
 
 (val_list
+  entry: _
+  .
   rest: _ @prepend_spaced_softline
 )
 
