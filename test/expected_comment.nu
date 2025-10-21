@@ -4,8 +4,8 @@
 # multiline
 def foo_bar [
   # comment at [
-  foo: string # comment for arg
-  bar: int # another comment
+  foo: string, # comment for arg
+  bar: int, # another comment
 ] {
   # comment at {
   # comment in body
