@@ -141,7 +141,21 @@
   ) @append_indent_end
 )
 
-;; space/newline between parameters
+;; Comma/newline between parameters
+;; NOTE: Currently, the parameter node contains the comma separator,
+;; as well as its doc comment. We want the comma to appear before the comment.
+(parameter
+  "," @delete
+)
+
+(parameter
+  (_) @append_delimiter
+  .
+  (comment)
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
 (parameter_pipes
   (
     (parameter) @append_delimiter
@@ -171,10 +185,6 @@
 
 (parameter
   flag_capsule: _ @prepend_space
-)
-
-(parameter
-  "," @delete
 )
 
 ;; attributes

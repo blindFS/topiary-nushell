@@ -5,7 +5,7 @@ export extern hello [name: string] {
 # decl_extern no body block
 extern hi [
   name: string,
-  --long (-s) # flags
+  --long (-s), # flags
 ]
 # env
 hide-env ABC
@@ -57,7 +57,7 @@ use module [ "foo" bar ]
 module greetings {
   export def hello [
     name: string,
-    --experimental-options: oneof<list<string>, string> # enable or disable experimental options
+    --experimental-options: oneof<list<string>, string>, # enable or disable experimental options
   ] {
     $"hello ($name)!"
   }
