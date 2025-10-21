@@ -4,14 +4,14 @@ export extern hello [name: string] {
 }
 # decl_extern no body block
 extern hi [
-  name: string
+  name: string,
   --long (-s) # flags
 ]
 # env
 hide-env ABC
 with-env {ABC: 'hello'} {
   (
-    do -i --env {|foo bar|
+    do -i --env {|foo, bar|
       print $env.ABC
     }
     foo bar
@@ -19,7 +19,7 @@ with-env {ABC: 'hello'} {
 }
 
 # closure
-let cls = {|foo bar baz|
+let cls = {|foo, bar, baz|
   (
     $foo +
     $bar + $baz
@@ -34,8 +34,8 @@ export-env {
 # decl_def
 def "hi there" [where: string]: nothing -> record<foo: table<baz: float>, bar: int> {
   {
-    foo: [["baz"]; [1.0]]
-    bar: 1
+    foo: [["baz"]; [1.0]],
+    bar: 1,
   }
 }
 
@@ -56,7 +56,7 @@ use module [ "foo" bar ]
 # decl_module
 module greetings {
   export def hello [
-    name: string
+    name: string,
     --experimental-options: oneof<list<string>, string> # enable or disable experimental options
   ] {
     $"hello ($name)!"

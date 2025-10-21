@@ -10,14 +10,14 @@ def foo_bar [
   # comment at {
   # comment in body
   [
-    foo # comment in list
+    foo, # comment in list
     # another comment
-    bar
+    bar,
   ];
   {
-    foo: foo # comment in record
+    foo: foo, # comment in record
     # another comment
-    bar: bar
+    bar: bar,
   } # comment at }
   (
     # comment at (
