@@ -58,7 +58,17 @@
 ] @prepend_space @append_space
 
 (pipeline
-  "|" @append_space @prepend_input_softline
+  [
+    "err>|"
+    "out>|"
+    "e>|"
+    "o>|"
+    "err+out>|"
+    "out+err>|"
+    "o+e>|"
+    "e+o>|"
+    "|"
+  ] @append_space @prepend_input_softline
 )
 
 ;; add spaces to left & right sides of operators
@@ -261,7 +271,7 @@
   "}"? @prepend_spaced_softline
 )
 
-(match_pattern "|" @prepend_spaced_softline @append_space )
+(match_pattern "|" @prepend_spaced_softline @append_space)
 
 ;; data structures
 (command_list
