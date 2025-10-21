@@ -144,22 +144,29 @@
 ;; space/newline between parameters
 (parameter_pipes
   (
-    (parameter) @append_space
+    (parameter) @append_delimiter
     .
-    (parameter)
+    (parameter) @prepend_space
   )?
+  (#delimiter! ",")
 ) @append_space @append_spaced_softline
 
 (parameter_bracks
-  (parameter) @append_space
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter
   .
   (parameter) @prepend_empty_softline
+  (#delimiter! ",")
 )
 
 (parameter_parens
-  (parameter) @append_space
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter
   .
   (parameter) @prepend_empty_softline
+  (#delimiter! ",")
 )
 
 (parameter
@@ -287,9 +294,19 @@
 (ctrl_match
   "match" @append_space
   scrutinee: _? @append_space
-  (match_arm)? @prepend_spaced_softline
-  (default_arm)? @prepend_spaced_softline
-  "}"? @prepend_spaced_softline
+  "{" @append_spaced_softline
+  "}" @prepend_spaced_softline
+)
+
+(ctrl_match
+  [
+    (match_arm)
+    (default_arm)
+  ] @append_delimiter
+  .
+  (_)
+  (#delimiter! ", ")
+  (#single_line_only!)
 )
 
 (match_pattern "|" @prepend_spaced_softline @append_space)
@@ -314,22 +331,77 @@
 ) @prepend_input_softline
 
 (list_body
-  entry: _ @append_space
+  entry: _ @append_delimiter
   .
-  entry: _ @prepend_spaced_softline
+  entry: _
+  (#delimiter! ", ")
+  (#single_line_only!)
 )
 
 (record_body
-  entry: _ @append_space
+  entry: _ @append_delimiter
   .
-  entry: _ @prepend_spaced_softline
+  entry: _
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+;; FIXME: comma after the last entry
+;; A workaround given:
+;; 1. https://github.com/nushell/tree-sitter-nu/issues/215
+;; 2. https://github.com/tree-sitter/tree-sitter/discussions/3967
+;; 3. Comments between entries should be kept unmoved
+(list_body
+  entry: _ @append_delimiter
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(list_body
+  entry: _ @append_begin_scope
+  .
+  entry: _ @prepend_spaced_softline @prepend_end_scope
+  (#multi_line_only!)
+  (#scope_id! "consecutive_scope")
+)
+
+(record_body
+  entry: _ @append_delimiter
+  (#multi_line_only!)
+  (#delimiter! ",")
+)
+
+(record_body
+  entry: _ @append_begin_scope
+  .
+  entry: _ @prepend_spaced_softline @prepend_end_scope
+  (#multi_line_only!)
+  (#scope_id! "consecutive_scope")
+)
+
+(ctrl_match
+  [
+    (match_arm (block)? @do_nothing)
+    (default_arm (block)? @do_nothing)
+  ] @append_delimiter
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(ctrl_match
+  [
+    (match_arm)
+    (default_arm)
+  ] @prepend_spaced_softline
+  (#multi_line_only!)
 )
 
 ;; match_arm
 (val_list
-  (list_body)
+  (list_body) @append_delimiter
   .
   rest: _ @prepend_spaced_softline
+  (#delimiter! ",")
 )
 
 (val_table
