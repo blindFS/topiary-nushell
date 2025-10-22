@@ -156,7 +156,17 @@
 )
 
 (parameter
-  (_) @append_delimiter
+  ;; need to be explicit to avoid
+  ;; commas between consecutive comments
+  [
+    (flag_capsule)
+    (param_completer)
+    (param_long_flag)
+    (param_opt)
+    (param_short_flag)
+    (param_type)
+    (param_value)
+  ] @append_delimiter
   .
   (comment)
   (#delimiter! ",")
