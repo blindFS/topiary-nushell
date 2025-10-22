@@ -58,3 +58,6 @@ module greetings {
         $"hi ($where)!"
     }
 };
+
+# https://github.com/blindFS/topiary-nushell/issues/35
+def f [--arg1: number, --arg2: string] {}

@@ -140,9 +140,7 @@
 )
 
 (parameter
-  param_long_flag: _? @prepend_space
-  .
-  flag_capsule: _? @prepend_space
+  flag_capsule: _ @prepend_space
 )
 
 (parameter
