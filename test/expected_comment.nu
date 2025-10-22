@@ -5,6 +5,7 @@
 def foo_bar [
   # comment at [
   foo: string, # comment for arg
+  # 2nd comment for arg foo
   bar: int, # another comment
 ] {
   # comment at {
