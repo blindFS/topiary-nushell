@@ -14,7 +14,7 @@ def test [] { }
 export def --env "path add" [
   --ret (-r), # return $env.PATH, useful in pipelines to avoid scoping.
   --append (-a), # append to $env.PATH instead of prepending to.
-  p
+  p,
 ] { }
 
 @search-terms multiply times

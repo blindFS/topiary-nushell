@@ -9,7 +9,7 @@ $env.TOPIARY_CONFIG_FILE = (pwd | path join languages.ncl)
 $env.TOPIARY_LANGUAGE_DIR = (pwd | path join languages)
 
 def main [
-  --update (-u) # force updating `expected_xxx` files
+  --update (-u), # force updating `expected_xxx` files
 ] {
   for f in $files {
     print $"(ansi green)Testing: (ansi yellow)($f)(ansi reset)"
