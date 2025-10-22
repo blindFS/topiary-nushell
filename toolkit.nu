@@ -3,7 +3,7 @@ use std assert
 const script_pwd = path self .
 
 def run_ide_check [
-  file: path
+  file: path,
 ] {
   nu --ide-check 9999 $file
   | lines
@@ -14,12 +14,12 @@ def run_ide_check [
 }
 
 def print_progress [
-  ratio: float
-  length: int = 20
+  ratio: float,
+  length: int = 20,
 ] {
   let done = '▓'
   let empty = '░'
-  let count = [1 (($ratio * $length) | into int)] | math max
+  let count = [1, (($ratio * $length) | into int)] | math max
   (
     print -n
     ('' | fill -c $done -w $count)
@@ -31,7 +31,7 @@ def print_progress [
 # Test the topiary formatter with all nu files within a directory
 # each script should pass the idempotent check as well as the linter
 export def test_format [
-  path: path # path to test
+  path: path, # path to test
 ] {
   $env.TOPIARY_CONFIG_FILE = ($script_pwd | path join languages.ncl)
   $env.TOPIARY_LANGUAGE_DIR = ($script_pwd | path join languages)

@@ -139,6 +139,13 @@
     .
     ["err>|" "out>|" "e>|" "o>|" "err+out>|" "out+err>|" "o+e>|" "e+o>|" "|"]
   ) @append_indent_end
+
+(parameter_pipes) @append_space @append_spaced_softline
+
+(parameter
+  param_long_flag: _? @prepend_space
+  .
+  flag_capsule: _? @prepend_space
 )
 
 ;; Comma/newline between parameters
@@ -153,38 +160,26 @@
   .
   (comment)
   (#delimiter! ",")
+)
+
+;; FIXME: comma after the last parameter for multi-line lists
+;; https://github.com/nushell/tree-sitter-nu/issues/215
+(
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter
+  .
+  (parameter)
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+(
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter @append_spaced_softline
+  (#delimiter! ",")
   (#multi_line_only!)
-)
-
-(parameter_pipes
-  (
-    (parameter) @append_delimiter
-    .
-    (parameter) @prepend_space
-  )?
-  (#delimiter! ",")
-) @append_space @append_spaced_softline
-
-(parameter_bracks
-  (parameter
-    (comment)? @do_nothing
-  ) @append_delimiter
-  .
-  (parameter) @prepend_empty_softline
-  (#delimiter! ",")
-)
-
-(parameter_parens
-  (parameter
-    (comment)? @do_nothing
-  ) @append_delimiter
-  .
-  (parameter) @prepend_empty_softline
-  (#delimiter! ",")
-)
-
-(parameter
-  flag_capsule: _ @prepend_space
 )
 
 ;; attributes
@@ -340,6 +335,11 @@
   file_path: _? @prepend_input_softline
 ) @prepend_input_softline
 
+;; FIXME: comma after the last entry for multi-line expressions
+;; A workaround given:
+;; 1. https://github.com/nushell/tree-sitter-nu/issues/215
+;; 2. https://github.com/tree-sitter/tree-sitter/discussions/3967
+;; 3. Comments between entries should be kept unmoved
 (list_body
   entry: _ @append_delimiter
   .
@@ -356,11 +356,6 @@
   (#single_line_only!)
 )
 
-;; FIXME: comma after the last entry
-;; A workaround given:
-;; 1. https://github.com/nushell/tree-sitter-nu/issues/215
-;; 2. https://github.com/tree-sitter/tree-sitter/discussions/3967
-;; 3. Comments between entries should be kept unmoved
 (list_body
   entry: _ @append_delimiter
   (#delimiter! ",")
