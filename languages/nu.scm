@@ -121,9 +121,7 @@
 (parameter_pipes) @append_space @append_spaced_softline
 
 (parameter
-  param_long_flag: _? @prepend_space
-  .
-  flag_capsule: _? @prepend_space
+  flag_capsule: _ @prepend_space
 )
 
 ;; Comma/newline between parameters
@@ -354,22 +352,36 @@
   entry: _ @append_begin_scope
   .
   entry: _ @prepend_spaced_softline @prepend_end_scope
-  (#multi_line_only!)
   (#scope_id! "consecutive_scope")
+  (#multi_line_only!)
 )
 
 (record_body
   entry: _ @append_delimiter
-  (#multi_line_only!)
   (#delimiter! ",")
+  (#multi_line_only!)
 )
 
 (record_body
   entry: _ @append_begin_scope
   .
   entry: _ @prepend_spaced_softline @prepend_end_scope
-  (#multi_line_only!)
   (#scope_id! "consecutive_scope")
+  (#multi_line_only!)
+)
+
+(val_table
+  row: _ @append_delimiter
+  .
+  row: _
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+(val_table
+  row: _ @append_delimiter @prepend_spaced_softline
+  (#delimiter! ",")
+  (#multi_line_only!)
 )
 
 (ctrl_match
@@ -395,10 +407,6 @@
   .
   rest: _ @prepend_spaced_softline
   (#delimiter! ",")
-)
-
-(val_table
-  row: _ @prepend_spaced_softline
 )
 
 ;; type notation
