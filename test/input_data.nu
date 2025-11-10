@@ -248,6 +248,8 @@ export const config = {
 }
 
 const table = [[a b]; [1 2] [2 [4 4]]]
+const  multi_line_table = [[a b]; [1 2]
+  [2 [4 4]]]
 const table_no_row = [[a b];]
 
 mut foo  :  record<"a", b "c": int d: list<any>> =  {}
