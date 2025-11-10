@@ -18,8 +18,7 @@
   (path)
 ] @leaf
 
-;; TODO: new feature of the next topiary release
-;; (unescaped_interpolated_content) @keep_whitespaces
+(unescaped_interpolated_content) @keep_whitespace
 
 ;; keep empty lines
 (_) @allow_blank_line_before

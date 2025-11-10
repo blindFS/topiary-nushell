@@ -15,3 +15,8 @@ const hybrid_help_cmd = (
 mut foo = 'foo bar'
 $foo += 'baz'
 $foo += r#'baz'#
+
+# https://github.com/blindFS/topiary-nushell/issues/28
+$'
+
+(1)'
