@@ -20,7 +20,7 @@
 
 ## Setup
 
-1. Install topiary-cli using whatever package-manager on your system (0.6.1+ required)
+1. Install topiary-cli using whatever package-manager on your system (0.7.0+ required)
 
 ```nushell
 # e.g. installing with cargo
