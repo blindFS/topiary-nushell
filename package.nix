@@ -49,22 +49,20 @@ writeShellApplication (
     topiaryConfigDir = pkgs.runCommand "topiary-nushell-config" { } ''
       local_config_dir="$out"
 
-      mkdir -p $local_config_dir/languages
-
       # 1. Copy the nu.scm language directory
-      cp -r ${./languages/nu.scm} $local_config_dir/languages/nu.scm
+      mkdir -p $local_config_dir/languages
+      cp ${./languages/nu.scm} $local_config_dir/languages/nu.scm
 
-      # 2. Write the languages.ncl file, referencing the compiled grammar
-      cat ${writeText "languages.ncl" ''
-        {
-          languages = {
-            nu = {
-              extensions = ["nu"],
-              grammar.source.path = "${libtree-sitter-nu}/lib/libtree-sitter-nu${extension}",
-            },
+      cat > $local_config_dir/languages.ncl <<EOF
+      {
+        languages = {
+          nu = {
+            extensions = ["nu"],
+            grammar.source.path = "${libtree-sitter-nu}/lib/libtree-sitter-nu${extension}",
           },
-        }
-      ''} > $local_config_dir/languages.ncl
+        },
+      }
+      EOF
     '';
   in
   {
