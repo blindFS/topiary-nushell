@@ -1,12 +1,11 @@
 {
   stdenv,
   lib,
-  pkgs,
+  runCommand,
   writeShellApplication,
   tree-sitter-nu ? fetchGit "https://github.com/nushell/tree-sitter-nu",
   topiary,
   nushell,
-  writeText,
   callPackage,
 }:
 writeShellApplication (
@@ -46,7 +45,7 @@ writeShellApplication (
 
     # Create a directory holding ALL runtime config files
     # This makes a single path for GC root.
-    topiaryConfigDir = pkgs.runCommand "topiary-nushell-config" { } ''
+    topiaryConfigDir = runCommand "topiary-nushell-config" { } ''
       local_config_dir="$out"
 
       # 1. Copy the nu.scm language directory
