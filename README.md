@@ -4,8 +4,10 @@
 
 * [Topiary](https://github.com/tweag/topiary): tree-sitter based uniform formatter
 * This repo contains:
-  * languages.ncl: configuration that enables nushell
-  * nu.scm: tree-sitter query DSL that defines the behavior of the formatter for nushell
+  * `bin/topiary-nushell` wrapper for `topiary` that formats nushell files
+  * `languages.ncl`: configuration that enables nushell
+  * `languages/nu.scm`: tree-sitter query DSL that defines the behavior of the formatter for nushell
+  * `format.nu`: deprecated version of `bin/topiary-nushell`
   * stand-alone tests written in nushell
 
 ## Status
@@ -77,7 +79,7 @@ $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
 
 <details>
   <summary>Using the <a href="https://github.com/blindFS/topiary-nushell/blob/main/format.nu">format.nu</a> wrapper </summary>
-  
+
 ```markdown
 Helper to run topiary with the correct environment variables for topiary-nushell
 
@@ -114,7 +116,7 @@ Examples:
 
 <details>
   <summary>Using topiary-cli </summary>
-  
+
 ```nushell
 # in-place formatting
 topiary format script.nu
@@ -147,7 +149,7 @@ This will keep the let assignment as it is while formatting the rest of the code
 <details>
   <summary>Neovim </summary>
   Format on save with <a href="https://github.com/stevearc/conform.nvim">conform.nvim</a>:
-  
+
 ```lua
 -- lazy.nvim setup
 {
