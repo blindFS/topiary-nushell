@@ -4,20 +4,21 @@
 # multiline
 def foo_bar [
   # comment at [
-  foo: string # comment for arg
-  bar: int # another comment
+  foo: string, # comment for arg
+  # 2nd comment for arg foo
+  bar: int, # another comment
 ] {
   # comment at {
   # comment in body
   [
-    foo # comment in list
+    foo, # comment in list
     # another comment
-    bar
+    bar,
   ];
   {
-    foo: foo # comment in record
+    foo: foo, # comment in record
     # another comment
-    bar: bar
+    bar: bar,
   } # comment at }
   (
     # comment at (

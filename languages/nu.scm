@@ -141,33 +141,54 @@
   ) @append_indent_end
 )
 
-;; space/newline between parameters
-(parameter_pipes
-  (
-    (parameter) @append_space
-    .
-    (parameter)
-  )?
-) @append_space @append_spaced_softline
-
-(parameter_bracks
-  (parameter) @append_space
-  .
-  (parameter) @prepend_empty_softline
-)
-
-(parameter_parens
-  (parameter) @append_space
-  .
-  (parameter) @prepend_empty_softline
-)
+(parameter_pipes) @append_space @append_spaced_softline
 
 (parameter
   flag_capsule: _ @prepend_space
 )
 
+;; Comma/newline between parameters
+;; NOTE: Currently, the parameter node contains the comma separator,
+;; as well as its doc comment. We want the comma to appear before the comment.
 (parameter
   "," @delete
+)
+
+(parameter
+  ;; need to be explicit to avoid
+  ;; commas between consecutive comments
+  [
+    (flag_capsule)
+    (param_completer)
+    (param_long_flag)
+    (param_opt)
+    (param_short_flag)
+    (param_type)
+    (param_value)
+  ] @append_delimiter
+  .
+  (comment)
+  (#delimiter! ",")
+)
+
+;; FIXME: comma after the last parameter for multi-line lists
+;; https://github.com/nushell/tree-sitter-nu/issues/215
+(
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter
+  .
+  (parameter)
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+(
+  (parameter
+    (comment)? @do_nothing
+  ) @append_delimiter @append_spaced_softline
+  (#delimiter! ",")
+  (#multi_line_only!)
 )
 
 ;; attributes
@@ -287,9 +308,19 @@
 (ctrl_match
   "match" @append_space
   scrutinee: _? @append_space
-  (match_arm)? @prepend_spaced_softline
-  (default_arm)? @prepend_spaced_softline
-  "}"? @prepend_spaced_softline
+  "{" @append_spaced_softline
+  "}" @prepend_spaced_softline
+)
+
+(ctrl_match
+  [
+    (match_arm)
+    (default_arm)
+  ] @append_delimiter
+  .
+  (_)
+  (#delimiter! ", ")
+  (#single_line_only!)
 )
 
 (match_pattern "|" @prepend_spaced_softline @append_space)
@@ -313,27 +344,92 @@
   file_path: _? @prepend_input_softline
 ) @prepend_input_softline
 
+;; FIXME: comma after the last entry for multi-line expressions
+;; A workaround given:
+;; 1. https://github.com/nushell/tree-sitter-nu/issues/215
+;; 2. https://github.com/tree-sitter/tree-sitter/discussions/3967
+;; 3. Comments between entries should be kept unmoved
 (list_body
-  entry: _ @append_space
+  entry: _ @append_delimiter
   .
-  entry: _ @prepend_spaced_softline
+  entry: _
+  (#delimiter! ", ")
+  (#single_line_only!)
 )
 
 (record_body
-  entry: _ @append_space
+  entry: _ @append_delimiter
   .
-  entry: _ @prepend_spaced_softline
+  entry: _
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+(list_body
+  entry: _ @append_delimiter
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(list_body
+  entry: _ @append_begin_scope
+  .
+  entry: _ @prepend_spaced_softline @prepend_end_scope
+  (#scope_id! "consecutive_scope")
+  (#multi_line_only!)
+)
+
+(record_body
+  entry: _ @append_delimiter
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(record_body
+  entry: _ @append_begin_scope
+  .
+  entry: _ @prepend_spaced_softline @prepend_end_scope
+  (#scope_id! "consecutive_scope")
+  (#multi_line_only!)
+)
+
+(val_table
+  row: _ @append_delimiter
+  .
+  row: _
+  (#delimiter! ", ")
+  (#single_line_only!)
+)
+
+(val_table
+  row: _ @append_delimiter @prepend_spaced_softline
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(ctrl_match
+  [
+    (match_arm (block)? @do_nothing)
+    (default_arm (block)? @do_nothing)
+  ] @append_delimiter
+  (#delimiter! ",")
+  (#multi_line_only!)
+)
+
+(ctrl_match
+  [
+    (match_arm)
+    (default_arm)
+  ] @prepend_spaced_softline
+  (#multi_line_only!)
 )
 
 ;; match_arm
 (val_list
-  (list_body)
+  (list_body) @append_delimiter
   .
   rest: _ @prepend_spaced_softline
-)
-
-(val_table
-  row: _ @prepend_spaced_softline
+  (#delimiter! ",")
 )
 
 ;; type notation

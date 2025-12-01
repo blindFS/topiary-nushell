@@ -12,9 +12,9 @@ def test [] { }
   path add {linux: "foo"}
 }
 export def --env "path add" [
-  --ret (-r) # return $env.PATH, useful in pipelines to avoid scoping.
-  --append (-a) # append to $env.PATH instead of prepending to.
-  p
+  --ret (-r), # return $env.PATH, useful in pipelines to avoid scoping.
+  --append (-a), # append to $env.PATH instead of prepending to.
+  p,
 ] { }
 
 @search-terms multiply times

@@ -9,8 +9,8 @@ use constants.nu [
 const animate_frames = 30
 
 def modify_args_per_workspace [
-  sid: string
-  focused_sid: string
+  sid: string,
+  focused_sid: string,
 ]: nothing -> list<string> {
   let icons = (
     aerospace list-windows --workspace $sid --json
@@ -21,28 +21,28 @@ def modify_args_per_workspace [
   )
   let extra = (
     if $sid == $focused_sid {
-      {highlight: on border_color: $colors.green}
+      {highlight: on, border_color: $colors.green}
     } else {
-      {highlight: off border_color: $colors.fg}
+      {highlight: off, border_color: $colors.fg}
     }
   )
 
-  ['--set' $"space.($sid)"]
+  ['--set', $"space.($sid)"]
   | append (
     if (($icons | is-empty) and ($sid != $focused_sid)) {
       [
-        background.drawing=off
-        label=
-        padding_left=-2
-        padding_right=-2
+        background.drawing=off,
+        label=,
+        padding_left=-2,
+        padding_right=-2,
       ]
     } else {
       [
-        background.drawing=on
-        label=($icons)
-        label.highlight=($extra.highlight)
-        padding_left=2
-        padding_right=2
+        background.drawing=on,
+        label=($icons),
+        label.highlight=($extra.highlight),
+        padding_left=2,
+        padding_right=2,
       ]
     }
   )
@@ -50,22 +50,22 @@ def modify_args_per_workspace [
 }
 
 def workspace_modification_args [
-  name: string
-  last_sid: string
+  name: string,
+  last_sid: string,
 ]: nothing -> list<string> {
   # use listener's label to store last focused space id
   let focused_sid = (aerospace list-workspaces --focused)
   let ids_to_modify = (
     if ($last_sid | is-empty) { (aerospace list-workspaces --all | lines) }
     else {
-      [$focused_sid $last_sid]
+      [$focused_sid, $last_sid]
     }
   )
   $ids_to_modify
   | uniq
   | each { modify_args_per_workspace $in $focused_sid }
   | flatten
-  | append ["--set" $name $"label=($focused_sid)"]
+  | append ["--set", $name, $"label=($focused_sid)"]
 }
 
 # remained for other possible signals
