@@ -10,15 +10,20 @@
 
 ## Status
 
-* Supposed to work well with all language features of nushell v0.108
+* Supposed to work well with all language features of nushell v0.109
   * Except for some known issues of `tree-sitter-nu`
 
 > [!NOTE]
 >
 > * There're corner cases where `tree-sitter-nu` would fail with parsing errors, if you encounter any, feel free to report [at the parser side](https://github.com/nushell/tree-sitter-nu/issues).
 > * If you encounter any style/format issue, please report in this repo.
+> * At this stage, the default style of nu-lang has no consensus yet, related breaking changes will be documented in [CHANGELOG.md](https://github.com/blindFS/topiary-nushell/blob/main/CHANGELOG.md).
 
-## Setup
+## Quick Setup
+
+> [!NOTE]
+> This section is for nushell users who have little experience with topiary.
+> If you are already an experienced topiary user, you can grab the necessary files in this repo and merge them into your topiary configuration in your own preferred way.
 
 1. Install topiary-cli using whatever package-manager on your system (0.7.0+ required)
 
@@ -29,17 +34,21 @@ cargo install topiary-cli
 
 2. Clone this repo somewhere
 
+`$env.XDG_CONFIG_HOME/topiary` is recommended for non-windows users.
+
 ```nushell
-# e.g. to `$env.XDG_CONFIG_HOME/topiary`
 git clone https://github.com/blindFS/topiary-nushell ($env.XDG_CONFIG_HOME | path join topiary)
 ```
 
 3. Setup environment variables (Optional)
 
 > [!WARNING]
-> This is required if you want to do the formatting via vanilla topiary-cli, like in the neovim/helix settings below.
+> This is required if:
 >
-> While the [`format.nu`](https://github.com/blindFS/topiary-nushell/blob/main/format.nu) script in this repo just wraps that for you.
+> 1. on windows
+> 2. this repo is cloned to a place other than `$env.XDG_CONFIG_HOME/topiary`
+>
+> Take the [`format.nu`](https://github.com/blindFS/topiary-nushell/blob/main/format.nu) script in this repo as an example.
 
 ```nushell
 # Set environment variables according to the path of the clone
@@ -76,8 +85,20 @@ $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
 ## Usage
 
 <details>
-  <summary>Using the <a href="https://github.com/blindFS/topiary-nushell/blob/main/format.nu">format.nu</a> wrapper </summary>
+  <summary>Using topiary-cli (recommended) </summary>
   
+```nushell
+# in-place formatting
+topiary format script.nu
+# stdin -> stdout
+cat foo.nu | topiary format --language nu
+```
+
+</details>
+
+<details>
+  <summary>Using the <a href="https://github.com/blindFS/topiary-nushell/blob/main/format.nu">format.nu</a> wrapper </summary>
+
 ```markdown
 Helper to run topiary with the correct environment variables for topiary-nushell
 
@@ -108,18 +129,6 @@ Examples:
 
   Path overriding
   > format.nu -c /path/to/topiary-nushell foo.nu bar.nu
-```
-
-</details>
-
-<details>
-  <summary>Using topiary-cli </summary>
-  
-```nushell
-# in-place formatting
-topiary format script.nu
-# stdin -> stdout
-cat foo.nu | topiary format --language nu
 ```
 
 </details>
@@ -192,7 +201,8 @@ formatter = { command = "topiary", args = ["format", "--language", "nu"] }
   "Nu": {
     "formatter": {
       "external": {
-        "command": "/path-to-the-clone/format.nu"
+        "command": "topiary",
+        "arguments": ["format", "--language", "nu"]
       }
     },
     "format_on_save": "on"
