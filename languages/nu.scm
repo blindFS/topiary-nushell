@@ -117,6 +117,30 @@
   (parameter_pipes)? @do_nothing
 )
 
+;; let/mut expression
+(_
+  value: (pipeline
+    .
+    (pipe_element) @append_indent_start
+    .
+    (comment)*
+    .
+    ["err>|" "out>|" "e>|" "o>|" "err+out>|" "out+err>|" "o+e>|" "e+o>|" "|"]
+  ) @append_indent_end
+)
+
+;; assignment
+(_
+  rhs: (pipeline
+    .
+    (pipe_element) @append_indent_start
+    .
+    (comment)*
+    .
+    ["err>|" "out>|" "e>|" "o>|" "err+out>|" "out+err>|" "o+e>|" "e+o>|" "|"]
+  ) @append_indent_end
+)
+
 ;; space/newline between parameters
 (parameter_pipes
   (
