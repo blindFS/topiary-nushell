@@ -15,8 +15,8 @@
 
 > [!NOTE]
 >
-> * There're corner cases where `tree-sitter-nu` would fail with parsing errors, if you encounter any, feel free to report [at the parser side](https://github.com/nushell/tree-sitter-nu/issues).
-> * If you encounter any style/format issue, please report in this repo.
+> * There are corner cases where `tree-sitter-nu` would fail with parsing errors.  If you encounter any, feel free to report [at the parser side](https://github.com/nushell/tree-sitter-nu/issues).
+> * If you encounter any style/format issue, please open an issue in this repo.
 > * At this stage, the default style of nu-lang has no consensus yet, related breaking changes will be documented in [CHANGELOG.md](https://github.com/blindFS/topiary-nushell/blob/main/CHANGELOG.md).
 
 ## Quick Setup
@@ -25,39 +25,47 @@
 > This section is for nushell users who have little experience with topiary.
 > If you are already an experienced topiary user, you can grab the necessary files in this repo and merge them into your topiary configuration in your own preferred way.
 
-1. Install topiary-cli using whatever package-manager on your system (0.7.0+ required)
+1. Install `topiary-cli` using whatever package-manager on your system (0.7.0+ required):
 
 ```nushell
 # e.g. installing with cargo
 cargo install topiary-cli
 ```
 
-2. Clone this repo somewhere
+2. Set up topiary config:
 
-`$env.XDG_CONFIG_HOME/topiary` is recommended for non-windows users.
+Using `$env.XDG_CONFIG_HOME/topiary` is recommended for non-Windows users.
 
 ```nushell
-git clone https://github.com/blindFS/topiary-nushell ($env.XDG_CONFIG_HOME | path join topiary)
+mkdir ($env.XDG_CONFIG_HOME | path join topiary queries)
+# languages.ncl goes in config root dir
+http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/languages.ncl
+  | save ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
+# languages/nu.scm goes in config queries dir
+http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/languages/nu.scm
+  | save ($env.XDG_CONFIG_HOME | path join topiary queries nu.scm)
 ```
 
-3. Setup environment variables (Optional)
+3. Setup environment variables (optional):
 
 > [!WARNING]
 > This is required if:
 >
-> 1. on windows
-> 2. this repo is cloned to a place other than `$env.XDG_CONFIG_HOME/topiary`
+> 1. On Windows
+> 2. The config files are in a location other than `$env.XDG_CONFIG_HOME/topiary`
 >
 > Take the [`format.nu`](https://github.com/blindFS/topiary-nushell/blob/main/format.nu) script in this repo as an example.
 
+Add the following to your `env.nu`:
+
 ```nushell
-# Set environment variables according to the path of the clone
+# Set environment variables according to your topiary config path:
 $env.TOPIARY_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
-$env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
+$env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary queries)
 ```
 
 > [!WARNING]
-> For windows users, if something went wrong the first time you run the formatter,
+> For Windows users, if something went wrong the first time you run the formatter,
 > like compiling errors, you might need the following extra steps to make it work.
 
 <details>
@@ -66,7 +74,7 @@ $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
 1. Install the [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/cli/README.md).
 2. Clone [tree-sitter-nu](https://github.com/nushell/tree-sitter-nu) somewhere and cd into it.
 3. Build the parser manually with `tree-sitter build`.
-4. Replace the `languages.ncl` file in this repo with something like:
+4. Replace the `languages.ncl` file with something like:
 
 ```ncl
 {
@@ -90,6 +98,7 @@ $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
 ```nushell
 # in-place formatting
 topiary format script.nu
+
 # stdin -> stdout
 cat foo.nu | topiary format --language nu
 ```
