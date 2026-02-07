@@ -6,7 +6,7 @@ const temp_file = 'test/temp.nu'
 let files = glob test/input_*.nu
 
 $env.TOPIARY_CONFIG_FILE = (pwd | path join languages.ncl)
-$env.TOPIARY_LANGUAGE_DIR = (pwd | path join languages)
+$env.TOPIARY_LANGUAGE_DIR = (pwd | path join queries)
 
 def main [
   --update (-u) # force updating `expected_xxx` files

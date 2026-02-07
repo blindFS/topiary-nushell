@@ -34,7 +34,7 @@ export def test_format [
   path: path # path to test
 ] {
   $env.TOPIARY_CONFIG_FILE = ($script_pwd | path join languages.ncl)
-  $env.TOPIARY_LANGUAGE_DIR = ($script_pwd | path join languages)
+  $env.TOPIARY_LANGUAGE_DIR = ($script_pwd | path join queries)
   let files = if ($path | path type) == 'file' {
     [$path]
   } else {

@@ -12,7 +12,7 @@ def main [
 ]: [nothing -> nothing string -> string] {
   let config_dir = $config_dir | default $script_path
   $env.TOPIARY_CONFIG_FILE = ($config_dir | path join languages.ncl)
-  $env.TOPIARY_LANGUAGE_DIR = ($config_dir | path join languages)
+  $env.TOPIARY_LANGUAGE_DIR = ($config_dir | path join queries)
 
   if ($files | is-not-empty) {
     topiary format ...$files

@@ -48,8 +48,8 @@ writeShellApplication (
       local_config_dir="$out"
 
       # 1. Copy the nu.scm language directory
-      mkdir -p $local_config_dir/languages
-      cp ${./languages/nu.scm} $local_config_dir/languages/nu.scm
+      mkdir -p $local_config_dir/queries
+      cp ${./queries/nu.scm} $local_config_dir/queries/nu.scm
 
       cat > $local_config_dir/languages.ncl <<EOF
       {
@@ -70,7 +70,7 @@ writeShellApplication (
     ];
     runtimeEnv = {
       TOPIARY_CONFIG_FILE = "${topiaryConfigDir}/languages.ncl";
-      TOPIARY_LANGUAGE_DIR = "${topiaryConfigDir}/languages";
+      TOPIARY_LANGUAGE_DIR = "${topiaryConfigDir}/queries";
     };
     text = ''
       ${lib.getExe topiary} "$@"

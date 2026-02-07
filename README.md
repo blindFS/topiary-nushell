@@ -41,8 +41,8 @@ mkdir ($env.XDG_CONFIG_HOME | path join topiary queries)
 # languages.ncl goes in config root dir
 http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/languages.ncl
   | save ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
-# languages/nu.scm goes in config queries dir
-http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/languages/nu.scm
+# queries/nu.scm goes in config queries dir
+http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/queries/nu.scm
   | save ($env.XDG_CONFIG_HOME | path join topiary queries nu.scm)
 ```
 
