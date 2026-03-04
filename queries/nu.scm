@@ -34,8 +34,8 @@
 ] @append_space
 
 [
-  "="
   "->"
+  "="
   "=>"
   "alias"
   "catch"
@@ -45,6 +45,7 @@
   "export"
   "export-env"
   "extern"
+  "finally"
   "for"
   "in"
   "let"

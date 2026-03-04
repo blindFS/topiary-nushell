@@ -47,3 +47,9 @@ try {
     msg: 'Some error info'
   }
 }; print 'Resuming'
+
+# try catch finally
+try {
+} catch { } finally {
+  1
+}

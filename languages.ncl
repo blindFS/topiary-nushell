@@ -4,7 +4,7 @@
       extensions = ["nu"],
       grammar.source.git = {
         git = "https://github.com/nushell/tree-sitter-nu.git",
-        rev = "bb3f533e5792260291945e1f329e1f0a779def6e",
+        rev = "f4793e3809bb84e78dee260b47085d8203a58d88",
       },
     },
   },

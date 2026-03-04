@@ -10,7 +10,7 @@
 
 ## Status
 
-* Supposed to work well with all language features of nushell v0.110
+* Supposed to work well with all language features of nushell v0.111
   * Except for some known issues of `tree-sitter-nu`
 
 > [!NOTE]
@@ -32,7 +32,7 @@
 cargo install topiary-cli
 ```
 
-2. Set up topiary config:
+1. Set up topiary config:
 
 Using `$env.XDG_CONFIG_HOME/topiary` is recommended for non-Windows users.
 
@@ -46,7 +46,7 @@ http get https://raw.githubusercontent.com/blindFS/topiary-nushell/main/queries/
   | save ($env.XDG_CONFIG_HOME | path join topiary queries nu.scm)
 ```
 
-3. Setup environment variables (optional):
+1. Setup environment variables (optional):
 
 > [!WARNING]
 > This is required if:
