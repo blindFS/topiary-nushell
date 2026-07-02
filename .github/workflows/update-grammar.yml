@@ -1,0 +1,62 @@
+name: Update tree-sitter-nu
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight UTC
+  workflow_dispatch: # Allow manual runs
+
+jobs:
+  update-grammar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check and update tree-sitter-nu commit
+        id: check-update
+        run: |
+          # Extract current revision hash from languages.ncl
+          current_rev=$(sed -nE 's/.*rev[[:space:]]*=[[:space:]]*"([a-f0-9]+)".*/\1/p' languages.ncl | head -n1)
+          echo "Current revision: $current_rev"
+
+          if [ -z "$current_rev" ]; then
+            echo "Error: Failed to extract current revision hash from languages.ncl"
+            exit 1
+          fi
+
+          # Get latest revision hash from the remote repository
+          latest_rev=$(git ls-remote https://github.com/nushell/tree-sitter-nu.git refs/heads/main | cut -f1)
+          echo "Latest revision: $latest_rev"
+
+          if [ -z "$latest_rev" ]; then
+            echo "Error: Failed to fetch latest revision hash"
+            exit 1
+          fi
+
+          if [ "$current_rev" != "$latest_rev" ]; then
+            echo "New commit found: $latest_rev"
+            sed -i "s/$current_rev/$latest_rev/g" languages.ncl
+            sed -i "s/$current_rev/$latest_rev/g" flake.nix
+            echo "updated=true" >> $GITHUB_OUTPUT
+            echo "latest_rev=$latest_rev" >> $GITHUB_OUTPUT
+          else
+            echo "No new commit found"
+            echo "updated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check-update.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update tree-sitter-nu to ${{ steps.check-update.outputs.latest_rev }}"
+          title: "chore: update tree-sitter-nu to ${{ steps.check-update.outputs.latest_rev }}"
+          body: |
+            A new commit was found in [nushell/tree-sitter-nu](https://github.com/nushell/tree-sitter-nu).
+            
+            Updated the grammar revision in `flake.nix` and `languages.ncl` to `${{ steps.check-update.outputs.latest_rev }}`.
+          branch: update-tree-sitter-nu
+          delete-branch: true
