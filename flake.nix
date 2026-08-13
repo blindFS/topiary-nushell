@@ -20,7 +20,7 @@
         topiary-nushell = pkgs.callPackage ./package.nix {
           tree-sitter-nu = fetchGit {
             url = "https://github.com/nushell/tree-sitter-nu";
-            rev = "d694570aa26b53d0d642460a0430e8aa07dcbea0";
+            rev = "64613ef22f4116862d7997939c8d1794ceb1f856";
           };
         };
         default = self.packages.${system}.topiary-nushell;
